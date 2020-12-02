@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>CRUD de Atendimento</title>
+ 
+ <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+ <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+<body>
+
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+   <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+     <span class="sr-only">Toggle navigation</span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Plataforma de Saúde</a>
+   </div>
+   <div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+     <li><a href="/paciente/index">Pacientes</a></li>
+        <li><a href="/medico/index">Medicos</a></li>
+     <li><a href="/atendimento/index">Atendimentos</a></li>
+     <li><a href="/laudo/index">Laudos</a></li>
+    </ul>
+   </div>
+  </div>
+ </nav>
+
+ <div id="main" class="container-fluid" style="margin-top: 50px">
+ 	<div id="top" class="row">
+		<div class="col-sm-3">
+			<h2>Atendimentos</h2>
+		</div>
+		<div class="col-sm-6">
+			
+			<div class="input-group h2">
+                <label for="search"></label><input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Itens">
+                <span class="input-group-btn">
+					<button class="btn btn-primary" type="submit">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+			
+		</div>
+		<div class="col-sm-3">
+			<button type="button" class="btn btn-primary pull-right h2" data-toggle="modal" data-target="#cadastrarAtendimento">Novo Atendimento</button>
+		</div>
+	</div> 
+ 
+ 	<hr />
+ 	
+ 	<div id="list" class="row">
+		<div class="table-responsive col-md-12">
+			<table class="table table-striped" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>dataHora</th>
+						<th>nomeProcedimento</th>
+						<th>paciente</th>
+                        <th>medico</th>
+						<th class="actions">Ações</th>
+					</tr>
+				</thead>
+				<tbody id="atendimentosTableBody">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+ </div>
+ 
+<div class="modal fade" id="cadastrarAtendimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dados do Atendimento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="atendimentoDataHora" class="col-form-label">Data Hora:</label>
+            <input type="text" class="form-control" id="atendimentoDataHora">
+          </div>
+          <div class="form-group">
+            <label for="atendimentoNomeProcedimento" class="col-form-label">Nome do Procedimento:</label>
+            <input type="text" class="form-control" id="atendimentoNomeProcedimento">
+          </div>
+          <div class="form-group">
+            <label for="pacienteSelectList" class="col-form-label">Nome do Paciente:</label>
+              <select id="pacienteSelectList">
+            </select>
+          </div>
+            <div class="form-group">
+                <label for="medicoSelectList" class="col-form-label">Nome do Medico:</label>
+                <select id="medicoSelectList">
+
+                </select>
+            </div>
+          <input type="hidden" id="idAtendimento">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onclick="AtendimentoController.save()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <script th:src="@{/assets/js/jquery.min.js}"></script>
+ <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+ <script th:src="@{/assets/js/atendimento/AtendimentoController.js}"></script>
+ <script th:src="@{/assets/js/paciente/PacienteController.js}"></script>
+ <script th:src="@{/assets/js/medico/MedicoController.js}"></script>
+ 
+ <script type="text/javascript">
+	 $(function() {
+		 AtendimentoController.list();
+         PacienteController.pacienteList();
+         MedicoController.medicoList();
+	 });
+ </script>
+ 
+</body>
+</html>
